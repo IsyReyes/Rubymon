@@ -85,7 +85,8 @@ def new_game
   puts "Raise your young #{@pokemon_nickname} by making it fight"
   puts "When you feel ready, you can challenge BROCK, the PEWTER's GYM LEADER"
   puts "-----------------------------------------------------------"
-  Saving.new_game_save(@player_name, @player_main_pokemon, @pokemon_nickname)
+  @game_state = Saving.new_game_save(@player_name, @player_main_pokemon, @pokemon_nickname)
+  @game_state
   selection_menu
 end
 
@@ -99,6 +100,7 @@ def selection_menu
   case gameplay_menu_choice
   when 'Stats'
     Stats.print_stats(@game_state)
+    selection_menu
     when 'Train'
     #call method for initiating a random battle
     #hashes as we have them rn won't work, change save method to add lvl key and value

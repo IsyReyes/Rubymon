@@ -6,7 +6,7 @@ class Stats
 
     nickname_row = pokemon['species'] != pokemon_nickname ? [['Nickname', pokemon_nickname]] : []
 
-    rows = [['Species', pokemon['species']]] + nickname_row + pokemon['base_stats'].map do |stat_name, value|
+    rows = [['Species', pokemon['species']]] + nickname_row + pokemon['stats'].map do |stat_name, value|
       [stat_name, value]
     end
 
