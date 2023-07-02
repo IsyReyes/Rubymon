@@ -11,12 +11,12 @@ class Loading
       player_name = game_state['player_name']
       pokemon_species = game_state['player_main_pokemon']['species']
       pokemon_nickname = game_state['pokemon_nickname']
-      pokemon_level = game_state['player_main_pokemon']['level']
+      pokemon_level = game_state['player_main_pokemon']['stats']['lvl']
 
       [save_name, player_name, "#{pokemon_species} - #{pokemon_nickname}", pokemon_level]
     end
 
-    table = Terminal::Table.new :title => 'Saved Files', :headings => ['Save Name', 'Player Name', 'Pokemon', 'Level'], :rows => rows
+    table = Terminal::Table.new :title => 'Saved Files', :headings => ['Save Name', 'Player Name', 'Pokemon', 'Lvl'], :rows => rows
     puts table
   end
 

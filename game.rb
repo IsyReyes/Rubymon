@@ -85,7 +85,8 @@ def new_game
   puts "Raise your young #{@pokemon_nickname} by making it fight"
   puts "When you feel ready, you can challenge BROCK, the PEWTER's GYM LEADER"
   puts "-----------------------------------------------------------"
-  Saving.new_game_save(@player_name, @player_main_pokemon, @pokemon_nickname)
+  @game_state = Saving.new_game_save(@player_name, @player_main_pokemon, @pokemon_nickname)
+  # @game_state
   selection_menu
 end
 
