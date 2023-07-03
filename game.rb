@@ -5,6 +5,7 @@ require_relative 'validations'
 require_relative 'save'
 require_relative 'load'
 require_relative 'stats'
+require_relative 'train_battle'
 
 class Initializing
   attr_reader :player_name, :player_main_pokemon
@@ -37,7 +38,7 @@ def welcome
     @game_state = Loading.load_save
     @player_name = @game_state['player_name']
     puts "\n\nWelcome back #{@player_name}! Let's save some POKEMON today!"
-    selection_menu
+    selection_menu(@game_state)
   end
 end
 
@@ -87,24 +88,23 @@ def new_game
   puts "-----------------------------------------------------------"
   @game_state = Saving.new_game_save(@player_name, @player_main_pokemon, @pokemon_nickname)
   @game_state
-  selection_menu
+  selection_menu(@game_state)
 end
 
 
-def selection_menu
+def selection_menu(game_state)
   puts "--------------------------Menu----------------------------"
   prompt = TTY::Prompt.new
-  choices = ['Stats', 'Train', 'Challenge Slave Master', 'Save Game', 'Exit']
+  choices = ['Stats', 'Rescue', 'Challenge Slave Master', 'Save Game', 'Exit']
   gameplay_menu_choice = prompt.select("Please select an option:", choices)
   puts "-----------------------------------------------------------"
   case gameplay_menu_choice
   when 'Stats'
-    Stats.print_stats(@game_state)
-    selection_menu
-    when 'Train'
-    #call method for initiating a random battle
-    #hashes as we have them rn won't work, change save method to add lvl key and value
-  when 'Challenge Slave Master'
+    Stats.print_stats(game_state)
+    selection_menu(game_state)
+    when 'Rescue'
+    Battle.rescue_battle(game_state)
+    when 'Challenge Slave Master'
     #call method to battle a gym leader
     #hashes as we have them rn won't work, change save method to add lvl key and value for specific bosses
   when 'Exit'
@@ -113,6 +113,7 @@ def selection_menu
     puts "-----------------------------------------------------------"
     exit
   end
+  selection_menu(game_state)
 end
 end
 
